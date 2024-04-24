@@ -1,4 +1,5 @@
 import { Button, Container, Stack } from "@nacteam/sdfui"
+import { PolynomItem } from "./PolynomItem"
 
 export const Polynoms: React.FC = () => {
     return (
@@ -14,9 +15,9 @@ export const Polynoms: React.FC = () => {
             variant='surface-container'
             outline
           >
-            <div>Polynom 1</div>
-            <div>Polynom 2</div>
-            <div>Polynom 3</div>
+            <PolynomItem id={179}>a^2 + b^3</PolynomItem>
+            <PolynomItem id={247}>a^2 + b^3</PolynomItem>
+            <PolynomItem id={339}>a^2 + b^3</PolynomItem>
           </Container>
           <Button>
             Add polynom

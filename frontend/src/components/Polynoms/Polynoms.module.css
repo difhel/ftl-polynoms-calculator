@@ -1,0 +1,57 @@
+.polynom {
+    border-radius: var(--shape-small);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.polynom>.icon-close {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+
+.polynom:hover {
+    background: var(--surface-container-highest);
+}
+
+.polynom:hover .icon-close {
+    opacity: 1;
+}
+
+.selectorOn,
+.selectorOff {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin-right: 8px;
+    position: relative;
+    z-index: 2;
+    transition: border 0.1s;
+}
+
+.selectorOn {
+    border: 2px solid var(--primary);
+}
+
+.selectorOff {
+    border: 2px solid var(--on-surface-variant);
+}
+
+.selectorOn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    z-index: 1;
+}

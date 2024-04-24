@@ -1,0 +1,26 @@
+#root {
+  padding: 24px;
+  color: var(--on-surface);
+  height: calc(100% - 48px);
+}
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+button > div > div { 
+  /* font-family: 'Product Sans' !important; */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+} 
+ 
+button > div > div > svg { 
+  padding-right: 4px; 
+}
+
+button {
+  height: fit-content !important;
+}

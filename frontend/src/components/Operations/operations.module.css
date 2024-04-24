@@ -1,0 +1,11 @@
+.buttons-row {
+    width: 100%;
+}
+
+.buttons-row > button {
+    width: 100% !important;
+}
+
+.buttons-row > button > div {
+    width: unset;
+}

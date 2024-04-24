@@ -2,7 +2,7 @@ import Latex from 'react-latex-next';
 import classes from "./Polynoms.module.css";
 import { IconNavigationCancel24round } from '@nacteam/sdfui-icons';
 import { Ripple } from '@nacteam/sdfui';
-import { useState } from 'react';
+import { useBanana } from '../ConfigProvider';
 
 interface PolynomItemProps {
     id: number;
@@ -10,15 +10,17 @@ interface PolynomItemProps {
 }
 
 export const PolynomItem: React.FC<PolynomItemProps> = ({ id, children }) => {
-    const [isSelected, setIsSelected] = useState(false);
+    const {isPolynomSelected, selectPolynom, unselectPolynom} = useBanana(id)!;
     return (
         <div
             className={classes.polynom}
             style={{position: "relative", overflow: "hidden"}}
-            onClick={() => setIsSelected(!isSelected)}
+            onClick={() => {
+                isPolynomSelected ? unselectPolynom() : selectPolynom();
+            }}
         >
             <div className={
-                isSelected
+                isPolynomSelected
                     ? classes.selectorOn
                     : classes.selectorOff
             } />

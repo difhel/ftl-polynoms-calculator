@@ -10,12 +10,18 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({
 }) => {
     const [selectedPolynoms, setSelectedPolynoms] = useState<number[]>([]);
     const [polynoms, setPolynoms] = useState<number[]>([]);
+
+    const [dialog, setDialog] = useState<any>(null);
     const ContextValue: ContextType = {
         polynoms: {
             polynoms,
             setPolynoms,
             selectedPolynoms,
             setSelectedPolynoms
+        },
+        dialog: {
+            dialog,
+            setDialog
         }
     }
     return (

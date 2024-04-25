@@ -1,9 +1,10 @@
 import './App.css'
 import { Stack, useAppearance } from '@nacteam/sdfui'
-import { Operations, Polynoms, Result } from './components'
+import { Operations, Polynoms, Result, useDialog } from './components'
 
 function App() {
-  const { appearance } = useAppearance()
+  const { appearance } = useAppearance();
+  const { dialog } = useDialog()!;
 
   return (
     <div className={appearance} style={{ height: "100%" }}>
@@ -18,6 +19,7 @@ function App() {
           <Result />
         </Stack>
       </Stack>
+      {dialog}
     </div>
   )
 }

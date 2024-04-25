@@ -13,6 +13,10 @@ export type ContextType = {
         setPolynoms: ReactState<number[]>["setter"],
         selectedPolynoms: ReactState<number[]>["getter"],
         setSelectedPolynoms: ReactState<number[]>["setter"]
+    },
+    dialog: {
+        dialog: any,
+        setDialog: React.Dispatch<React.SetStateAction<any>>
     }
 }
 
@@ -25,7 +29,6 @@ export const useBanana = (id: number) => {
         selectedPolynoms, setSelectedPolynoms
     } = ctx.polynoms;
     const selectPolynom = () => {
-        console.warn("selectedPolynoms", selectedPolynoms);
         if (selectedPolynoms.length == 2) {
             setSelectedPolynoms([
                 selectedPolynoms[0], id
@@ -44,5 +47,15 @@ export const useBanana = (id: number) => {
         selectPolynom,
         unselectPolynom,
         isPolynomSelected
+    }
+}
+
+export const useDialog = () => {
+    const ctx = useContext(AppContext);
+    if (ctx === null) return;
+    const { dialog, setDialog } = ctx.dialog;
+    return {
+        dialog,
+        setDialog
     }
 }

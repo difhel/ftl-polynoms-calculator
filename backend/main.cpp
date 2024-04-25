@@ -6,8 +6,13 @@ int main() {
     std::cout << "Enter the polynom: ";
     std::cin >> s;
     LexerReturnType<Polynom> res = lexPolynom(s.begin(), s.end());
+    int n;
+    std::cout << "Enter the number of derivative: ";
+    std::cin >> n;
     if (res.value) {
-        std::cout << res.value.value().toLatexString() << std::endl;
+        auto v = res.value.value();
+        std::cout << v.toLatexString() << std::endl;
+        std::cout << v.GetTheNthDerivative(n, 'x') << std::endl;
     } else {
         std::cout << "Error" << std::endl;
     }

@@ -32,8 +32,8 @@ class Polynom {
     }
     public:
         Polynom() = default;
-        Polynom(const Polynom& other) = default;
-        Polynom(Polynom&& other) = default;
+        // Polynom(const Polynom& other) = default;
+        // Polynom(Polynom&& other) = default;
         std::string toLatexString() const {
             std::string res;
             for (int i = 0; i < terms_.size(); ++i) {
@@ -93,5 +93,41 @@ class Polynom {
                 }
             }
             return true;
+        }
+
+        Polynom operator+(const Polynom& other) const {
+            Polynom result;
+
+            for (int i = 0; i < terms_.size(); ++i) {
+                result.terms_.push(terms_[i]);
+            }
+
+            for (int i = 0; i < other.terms_.size(); ++i) {
+                result.terms_.push(other.terms_[i]);
+            }
+
+            result.normalize_();
+            return result;
+        }
+
+        Polynom operator*(const Term& other) const {
+            Polynom result;
+
+            for (int i = 0; i < terms_.size(); ++i) {
+                result.terms_.push(terms_[i] * other);
+            }
+
+            result.normalize_();
+            return result;
+        }
+
+        Polynom operator*(const Polynom& other) const {
+            Polynom result;
+
+            for (int i = 0; i < other.terms_.size(); ++i) {
+                result = result + operator*(other.terms_[i]);
+            }
+            result.normalize_();
+            return result;
         }
 };

@@ -6,7 +6,7 @@ int main() {
     std::string s2 = "5xz";
     LexerReturnType<Polynom> res1 = lexPolynom(s.begin(), s.end());
     LexerReturnType<Polynom> res2 = lexPolynom(s2.begin(), s2.end());
-    std::cout << res1.value.value() * res2.value.value() << std::endl;
+    std::cout << res1.value.value() - res2.value.value() << std::endl;
     // std::string s;
     // std::cout << "Enter the polynom: ";
     // std::cin >> s;

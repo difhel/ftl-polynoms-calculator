@@ -7,7 +7,7 @@ int main() {
     std::cin >> s;
     LexerReturnType<Polynom> res = lexPolynom(s.begin(), s.end());
     if (res.value) {
-        std::cout << res.value.value() << std::endl;
+        std::cout << res.value.value().toLatexString() << std::endl;
     } else {
         std::cout << "Error" << std::endl;
     }

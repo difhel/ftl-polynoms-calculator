@@ -20,7 +20,8 @@ struct Term {
         if (isNumber()) {
             return numToString(coefficient);
         }
-        if (coefficient != 1) res += numToString(coefficient);
+        if (coefficient != 1 && coefficient != -1) res += numToString(coefficient);
+        if (coefficient == -1) res += '-';
         for (int i = 0; i < 26; ++i) {
             char letter = 'a' + i;
             int power = powers[i];
@@ -33,6 +34,10 @@ struct Term {
 
     // method for cout the term
     friend std::ostream& operator<<(std::ostream& os, const Term& term) {
+        if (term.isNumber()) {
+            os << numToString(term.coefficient);
+            return os;
+        }
         bool first = true;
         if (term.coefficient != 1 && term.coefficient != -1) {
             first = false;
@@ -51,6 +56,7 @@ struct Term {
             } else os << "*" << letter;
             if (power != 1) os << "^" << power;
         }
+
         return os;
     }
 };

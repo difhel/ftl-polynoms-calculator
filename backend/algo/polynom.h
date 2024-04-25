@@ -6,12 +6,29 @@
 class Polynom {
     LinkedList<Term> terms_;
     void normalize_() {
+        terms_.sort();
+        // remove zeros
         LinkedList<Term> new_terms;
         for (int i = 0; i < terms_.size(); ++i) {
             if (terms_[i].coefficient == 0) continue;
             new_terms.push(terms_[i]);
         }
         terms_ = new_terms;
+        // merge terms with the same powers
+        LinkedList<Term> merged_terms;
+        for (int i = 0; i < terms_.size(); ++i) {
+            if (merged_terms.empty()) {
+                merged_terms.push(terms_[i]);
+                continue;
+            }
+            Term& last = merged_terms[merged_terms.size() - 1];
+            if (last.powers == terms_[i].powers) {
+                last.coefficient += terms_[i].coefficient;
+            } else {
+                merged_terms.push(terms_[i]);
+            }
+        }
+        terms_ = merged_terms;
     }
     public:
         Polynom() = default;
@@ -53,7 +70,7 @@ class Polynom {
             return os;
         }
 
-        Polynom GetTheNthDerivative(int n, char target) const {
+        Polynom getTheNthDerivative(int n, char target) const {
             Polynom result;
 
             result.terms_ = terms_;
@@ -64,5 +81,17 @@ class Polynom {
 
             result.normalize_();
             return result;
+        }
+
+        bool operator==(const Polynom& other) const {
+            if (terms_.size() != other.terms_.size()) {
+                return false;
+            }
+            for (int i = 0; i < terms_.size(); ++i) {
+                if (terms_[i] != other.terms_[i]) {
+                    return false;
+                }
+            }
+            return true;
         }
 };

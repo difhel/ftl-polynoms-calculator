@@ -23,6 +23,10 @@ class LinkedList {
             return size_;
         }
 
+        bool empty() const {
+            return size() == 0;
+        }
+
         T& operator[](size_t index) const {
             auto currentNode = head_->next;
 

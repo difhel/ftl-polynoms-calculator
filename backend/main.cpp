@@ -12,7 +12,7 @@ int main() {
     if (res.value) {
         auto v = res.value.value();
         std::cout << v.toLatexString() << std::endl;
-        std::cout << v.GetTheNthDerivative(n, 'x') << std::endl;
+        std::cout << v.getTheNthDerivative(n, 'x') << std::endl;
     } else {
         std::cout << "Error" << std::endl;
     }

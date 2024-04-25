@@ -83,6 +83,10 @@ struct Term {
         return true;
     }
 
+    bool operator!=(const Term& other) const {
+        return !(*this == other);
+    }
+
     bool equalPowers(const Term& other) const {
         for (int i = 0; i < 26; ++i) {
             if (powers[i] != other.powers[i]) {

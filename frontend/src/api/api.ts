@@ -9,7 +9,7 @@ type APIResponse<ok extends boolean, T extends any> = ok extends true ? {
     error: string;
 };
 
-class API {
+export class API {
     baseURL: string = BASE_URL;
     constructor(baseURL: string | undefined = undefined) {
         if (baseURL !== undefined) {
@@ -77,6 +77,11 @@ class API {
     async delete(polynom: string) {
         return this.#getResponse<string>(
             await this.#getResourse("delete", {polynom})
+        )
+    }
+    async add(lhs: string, rhs: string) {
+        return this.#getResponse<string>(
+            await this.#getResourse("add", {lhs, rhs})
         )
     }
 }

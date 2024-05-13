@@ -75,9 +75,12 @@ export const usePolynoms = () => {
     const ctx = useContext(AppContext);
     if (ctx === null) return;
     const { polynoms, setPolynoms } = ctx.polynoms;
+    const { selectedPolynoms, setSelectedPolynoms } = ctx.polynoms;
     return {
         polynoms,
-        setPolynoms
+        setPolynoms,
+        selectedPolynoms,
+        setSelectedPolynoms
     }
 }
 

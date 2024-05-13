@@ -7,10 +7,15 @@ type ReactState<K> = {
     setter: React.Dispatch<React.SetStateAction<K>>
 };
 
+export type PolynomStoredObject = {
+    polynom: string,
+    index: number
+}
+
 export type ContextType = {
     polynoms: {
-        polynoms: ReactState<number[]>["getter"],
-        setPolynoms: ReactState<number[]>["setter"],
+        polynoms: ReactState<PolynomStoredObject[]>["getter"],
+        setPolynoms: ReactState<PolynomStoredObject[]>["setter"],
         selectedPolynoms: ReactState<number[]>["getter"],
         setSelectedPolynoms: ReactState<number[]>["setter"]
     },
@@ -22,7 +27,7 @@ export type ContextType = {
 
 export const AppContext = createContext(null as ContextType | null);
 
-export const useBanana = (id: number) => {
+export const useBanana = (value: PolynomStoredObject) => {
     const ctx = useContext(AppContext);
     if (ctx === null) return;
     const {
@@ -31,18 +36,19 @@ export const useBanana = (id: number) => {
     const selectPolynom = () => {
         if (selectedPolynoms.length == 2) {
             setSelectedPolynoms([
-                selectedPolynoms[0], id
+                selectedPolynoms[0], value.index
             ])
         } else {
-            setSelectedPolynoms([...selectedPolynoms, id]);
+            setSelectedPolynoms([...selectedPolynoms, value.index]);
         }
     }
     const unselectPolynom = () => {
+        if (!selectedPolynoms.includes(value.index)) return;
         let newSelectedPolynoms = [...selectedPolynoms];
-        newSelectedPolynoms.splice(newSelectedPolynoms.indexOf(id), 1);
+        newSelectedPolynoms.splice(newSelectedPolynoms.indexOf(value.index), 1);
         setSelectedPolynoms(newSelectedPolynoms);
     }
-    const isPolynomSelected = selectedPolynoms.includes(id);
+    const isPolynomSelected = selectedPolynoms.includes(value.index);
     return {
         selectPolynom,
         unselectPolynom,
@@ -57,5 +63,15 @@ export const useDialog = () => {
     return {
         dialog,
         setDialog
+    }
+}
+
+export const usePolynoms = () => {
+    const ctx = useContext(AppContext);
+    if (ctx === null) return;
+    const { polynoms, setPolynoms } = ctx.polynoms;
+    return {
+        polynoms,
+        setPolynoms
     }
 }

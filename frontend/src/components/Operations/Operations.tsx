@@ -16,7 +16,7 @@ export const Operations: React.FC = () => {
       supportingText='Boobs boobs lorem ipsum dolor sit amet'
       buttons={
         <>
-          <Button onClick={() => { }} variant='outlined'>Cancel</Button>
+          <Button onClick={() => setDialog(null)} variant='outlined'>Cancel</Button>
           <Button onClick={() => { }} variant='filled'>Click me</Button>
         </>
       }
@@ -34,7 +34,7 @@ export const Operations: React.FC = () => {
         direction={'column'}
         spacing={2}
       >
-        <div onClick={() => setDialog(ks)}>Operations +-*/ dx x_0 point ==</div>
+        <div onClick={() => setDialog(ks)}>Operations</div>
         <ArithmeticsOperations />
         <OtherOperations />
       </Stack>

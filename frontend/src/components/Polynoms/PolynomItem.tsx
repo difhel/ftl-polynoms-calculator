@@ -2,15 +2,19 @@ import Latex from 'react-latex-next';
 import classes from "./Polynoms.module.css";
 import { IconNavigationCancel24round } from '@nacteam/sdfui-icons';
 import { Ripple } from '@nacteam/sdfui';
-import { useBanana } from '../ConfigProvider';
+import { PolynomStoredObject, useBanana, useDialog, usePolynoms } from '../ConfigProvider';
+import { useAPI } from '../../api/api';
+import { Error } from '../Dialog';
 
 interface PolynomItemProps {
-    id: number;
-    children: string;
+    children: PolynomStoredObject;
 }
 
-export const PolynomItem: React.FC<PolynomItemProps> = ({ id, children }) => {
-    const {isPolynomSelected, selectPolynom, unselectPolynom} = useBanana(id)!;
+export const PolynomItem: React.FC<PolynomItemProps> = ({ children }) => {
+    const {isPolynomSelected, selectPolynom, unselectPolynom} = useBanana(children)!;
+    const api = useAPI();
+    const {setDialog} =  useDialog()!;
+    const {polynoms, setPolynoms} = usePolynoms()!;
     return (
         <div
             className={classes.polynom}
@@ -24,10 +28,18 @@ export const PolynomItem: React.FC<PolynomItemProps> = ({ id, children }) => {
                     ? classes.selectorOn
                     : classes.selectorOff
             } />
-            <Latex>{"$" + children + "$"}</Latex>
-            <div className={classes.iconClose}>
+            <Latex>{"$" + children.polynom + "$"}</Latex>
+            <button className={classes.iconClose} style={{zIndex: 100}} onClick={() => {
+                api.delete(children.polynom).then((data) => {
+                    if (!data.ok) return setDialog(<Error supportingText={data.error}/>)
+                    let newPolynoms = [...polynoms];
+                    newPolynoms.splice(polynoms.indexOf(children), 1);
+                    setPolynoms(newPolynoms);
+                    unselectPolynom();
+                })
+            }}>
                 <IconNavigationCancel24round />
-            </div>
+            </button>
             <Ripple />
         </div>
     );

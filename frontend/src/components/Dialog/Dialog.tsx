@@ -1,6 +1,8 @@
-import { Container, Stack } from '@nacteam/sdfui';
+import { Button, Container, Stack } from '@nacteam/sdfui';
 import classes from './Dialog.module.css';
 import { IconNavigationClose24round } from '@nacteam/sdfui-icons';
+import React from 'react';
+import { useDialog } from '../ConfigProvider';
 
 interface DialogProps {
     children?: React.ReactNode;
@@ -83,4 +85,17 @@ export const Dialog: React.FC<DialogProps> = ({
             </DialogContainer>
         </DialogWrapper>
     )
+}
+
+
+export const Error: React.FC<{supportingText: string}> = ({
+    supportingText
+}) => {
+    const {setDialog} = useDialog()!;
+    return <Dialog
+        headline="Error"
+        onClose={() => { }}
+        supportingText={supportingText}
+        buttons={<Button onClick={() => setDialog(null)} variant='filled'>OK</Button>}>
+    </Dialog>
 }

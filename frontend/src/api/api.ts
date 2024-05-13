@@ -16,7 +16,7 @@ export class API {
             this.baseURL = baseURL;
         }
     }
-    #getResponse<T extends any>(response: any) {
+    #getResponse<T extends any>(response: any, wrap: boolean = false) {
         if (response.detail) {
             return {
                 ok: false,
@@ -25,7 +25,7 @@ export class API {
         } else {
             return {
                 ok: true,
-                response: response.response as string
+                response: wrap? response : response.response as T
             } as APIResponse<true, T>;
         }
     }
@@ -87,6 +87,15 @@ export class API {
     async multiply(lhs: string, rhs: string) {
         return this.#getResponse<string>(
             await this.#getResourse("multiply", {lhs, rhs})
+        )
+    }
+    async divide(lhs: string, rhs: string) {
+        return this.#getResponse<{
+            div: string,
+            mod: string
+        }>(
+            await this.#getResourse("divide", {lhs, rhs}),
+            true
         )
     }
 }

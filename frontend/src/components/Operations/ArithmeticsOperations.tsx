@@ -42,6 +42,25 @@ const OpMultiply = (
     });
 }
 
+const OpDivide = (
+    opdata: OpDataType
+) => {
+    const { selectedPolynoms, setDialog, api, setResult } = opdata;
+    if (selectedPolynoms.length != 2) {
+        return setDialog(<Error supportingText={"You should select 2 polynoms for /"}/>);
+    }
+    api.divide(
+        selectedPolynoms[0].polynom, selectedPolynoms[1].polynom
+    ).then((data) => {
+        if (!data.ok) return setDialog(<Error supportingText={data.error}/>);
+        setResult(<>
+            Div: <Latex>{"$" + (data.response.div || 0) + "$"}</Latex>
+            <br />
+            Mod: <Latex>{"$" + (data.response.mod || 0) + "$"}</Latex>
+        </>);
+    });
+}
+
 export const ArithmeticsOperations: React.FC = () => {
     const { polynoms, selectedPolynoms } = usePolynoms()!;
     const { setDialog } = useDialog()!;
@@ -71,7 +90,7 @@ export const ArithmeticsOperations: React.FC = () => {
             <Button variant='outlined' onClick={() => OpMultiply(opData)}>
                 <IconMapsEmergency24round /> Multiply
             </Button>
-            <Button variant='outlined'>
+            <Button variant='outlined' onClick={() => OpDivide(opData)}>
                 <IconContentFilterListOff24round />/ Divide
             </Button>
             <Button variant='outlined'>

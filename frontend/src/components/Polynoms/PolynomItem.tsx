@@ -29,7 +29,8 @@ export const PolynomItem: React.FC<PolynomItemProps> = ({ children }) => {
                     : classes.selectorOff
             } />
             <Latex>{"$" + children.polynom + "$"}</Latex>
-            <button className={classes.iconClose} style={{zIndex: 100}} onClick={() => {
+            <button className={classes.iconClose} style={{zIndex: 100}} onClick={(event) => {
+                event.stopPropagation();
                 api.delete(children.polynom).then((data) => {
                     if (!data.ok) return setDialog(<Error supportingText={data.error}/>)
                     let newPolynoms = [...polynoms];

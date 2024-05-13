@@ -98,6 +98,11 @@ export class API {
             true
         )
     }
+    async compare(lhs: string, rhs: string) {
+        return this.#getResponse<boolean>(
+            await this.#getResourse("compare", {lhs, rhs})
+        )
+    }
 }
 
 const APIClient = new API();

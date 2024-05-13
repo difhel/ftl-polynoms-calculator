@@ -61,6 +61,21 @@ const OpDivide = (
     });
 }
 
+const OpCompare = (
+    opdata: OpDataType
+) => {
+    const { selectedPolynoms, setDialog, api, setResult } = opdata;
+    if (selectedPolynoms.length != 2) {
+        return setDialog(<Error supportingText={"You should select 2 polynoms for ="}/>);
+    }
+    api.compare(
+        selectedPolynoms[0].polynom, selectedPolynoms[1].polynom
+    ).then((data) => {
+        if (!data.ok) return setDialog(<Error supportingText={data.error}/>);
+        setResult(data.response ? "Polynoms are equal" : "Polynoms are not equal");
+    });
+}
+
 export const ArithmeticsOperations: React.FC = () => {
     const { polynoms, selectedPolynoms } = usePolynoms()!;
     const { setDialog } = useDialog()!;
@@ -93,7 +108,7 @@ export const ArithmeticsOperations: React.FC = () => {
             <Button variant='outlined' onClick={() => OpDivide(opData)}>
                 <IconContentFilterListOff24round />/ Divide
             </Button>
-            <Button variant='outlined'>
+            <Button variant='outlined' onClick={() => OpCompare(opData)}>
                 <IconActionVisibility24round /> Equality
             </Button>
         </Stack>

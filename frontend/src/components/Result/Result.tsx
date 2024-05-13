@@ -1,6 +1,8 @@
 import { Container } from "@nacteam/sdfui";
+import { useResult } from "../ConfigProvider";
 
 export const Result: React.FC = () => {
+    const { result } = useResult()!;
     return (
         <Container
             variant='secondary'
@@ -8,7 +10,8 @@ export const Result: React.FC = () => {
                 width: "calc(100% - 16px)",
             }}
         >
-            Result
+            Result <br />
+            {result}
         </Container>
     );
 }

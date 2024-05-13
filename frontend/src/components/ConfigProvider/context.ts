@@ -22,6 +22,11 @@ export type ContextType = {
     dialog: {
         dialog: any,
         setDialog: React.Dispatch<React.SetStateAction<any>>
+    },
+    result: {
+        result: any,
+        setResult: React.Dispatch<React.SetStateAction<any>>
+    
     }
 }
 
@@ -73,5 +78,15 @@ export const usePolynoms = () => {
     return {
         polynoms,
         setPolynoms
+    }
+}
+
+export const useResult = () => {
+    const ctx = useContext(AppContext);
+    if (ctx === null) return;
+    const { result, setResult } = ctx.result;
+    return {
+        result,
+        setResult
     }
 }

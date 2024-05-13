@@ -1,5 +1,5 @@
 import { Button, Stack } from "@nacteam/sdfui";
-import { IconActionVisibility24round, IconContentCalculate24round, IconContentInsights24round, IconEditorLineAxis24round } from "@nacteam/sdfui-icons";
+import { IconContentCalculate24round, IconContentInsights24round, IconEditorLineAxis24round } from "@nacteam/sdfui-icons";
 import classes from "./operations.module.css";
 
 export const OtherOperations: React.FC = () => {

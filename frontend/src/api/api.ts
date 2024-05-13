@@ -84,6 +84,11 @@ export class API {
             await this.#getResourse("add", {lhs, rhs})
         )
     }
+    async multiply(lhs: string, rhs: string) {
+        return this.#getResponse<string>(
+            await this.#getResourse("multiply", {lhs, rhs})
+        )
+    }
 }
 
 const APIClient = new API();

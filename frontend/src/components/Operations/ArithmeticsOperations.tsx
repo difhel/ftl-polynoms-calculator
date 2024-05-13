@@ -1,5 +1,5 @@
 import { Button, Stack } from "@nacteam/sdfui";
-import { IconActionVisibility24round, IconContentAdd24round, IconContentFilterListOff24round, IconContentRemove24round, IconMapsEmergency24round } from "@nacteam/sdfui-icons";
+import { IconActionVisibility24round, IconContentAdd24round, IconContentFilterListOff24round, IconMapsEmergency24round } from "@nacteam/sdfui-icons";
 import classes from "./operations.module.css";
 import { PolynomStoredObject, useDialog, usePolynoms, useResult } from "../ConfigProvider";
 import { Error } from "../Dialog";
@@ -27,7 +27,20 @@ const OpPlus = (
     });
 }
 
-
+const OpMultiply = (
+    opdata: OpDataType
+) => {
+    const { selectedPolynoms, setDialog, api, setResult } = opdata;
+    if (selectedPolynoms.length != 2) {
+        return setDialog(<Error supportingText={"You should select 2 polynoms for *"}/>);
+    }
+    api.multiply(
+        selectedPolynoms[0].polynom, selectedPolynoms[1].polynom
+    ).then((data) => {
+        if (!data.ok) return setDialog(<Error supportingText={data.error}/>);
+        setResult(<Latex>{"$" + data.response + "$"}</Latex>);
+    });
+}
 
 export const ArithmeticsOperations: React.FC = () => {
     const { polynoms, selectedPolynoms } = usePolynoms()!;
@@ -55,7 +68,7 @@ export const ArithmeticsOperations: React.FC = () => {
             {/* <Button variant='outlined'>
                 <IconContentRemove24round /> Minus
             </Button> */}
-            <Button variant='outlined'>
+            <Button variant='outlined' onClick={() => OpMultiply(opData)}>
                 <IconMapsEmergency24round /> Multiply
             </Button>
             <Button variant='outlined'>

@@ -18,9 +18,6 @@ export const OtherOperations: React.FC = () => {
             <Button variant='outlined'>
                 <IconEditorLineAxis24round /> Value at point
             </Button>
-            <Button variant='outlined'>
-                <IconActionVisibility24round /> Equality
-            </Button>
         </Stack>
     );
 }

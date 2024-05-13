@@ -1,5 +1,5 @@
 import { Button, Stack } from "@nacteam/sdfui";
-import { IconContentAdd24round, IconContentFilterListOff24round, IconContentRemove24round, IconMapsEmergency24round } from "@nacteam/sdfui-icons";
+import { IconActionVisibility24round, IconContentAdd24round, IconContentFilterListOff24round, IconContentRemove24round, IconMapsEmergency24round } from "@nacteam/sdfui-icons";
 import classes from "./operations.module.css";
 import { PolynomStoredObject, useDialog, usePolynoms, useResult } from "../ConfigProvider";
 import { Error } from "../Dialog";
@@ -27,6 +27,8 @@ const OpPlus = (
     });
 }
 
+
+
 export const ArithmeticsOperations: React.FC = () => {
     const { polynoms, selectedPolynoms } = usePolynoms()!;
     const { setDialog } = useDialog()!;
@@ -50,14 +52,17 @@ export const ArithmeticsOperations: React.FC = () => {
             <Button variant='outlined' onClick={() => OpPlus(opData)}>
                 <IconContentAdd24round /> Plus
             </Button>
-            <Button variant='outlined'>
+            {/* <Button variant='outlined'>
                 <IconContentRemove24round /> Minus
-            </Button>
+            </Button> */}
             <Button variant='outlined'>
                 <IconMapsEmergency24round /> Multiply
             </Button>
             <Button variant='outlined'>
                 <IconContentFilterListOff24round />/ Divide
+            </Button>
+            <Button variant='outlined'>
+                <IconActionVisibility24round /> Equality
             </Button>
         </Stack>
     );

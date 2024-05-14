@@ -36,6 +36,27 @@ const OpDerivative = (
     });
 }
 
+const OpRoots = (
+    opdata: OpDataType
+) => {
+    const { selectedPolynoms, setDialog, api, setResult } = opdata;
+    if (selectedPolynoms.length != 1) {
+        return setDialog(<Error supportingText={"You should select only one polynom"} />);
+    }
+
+    api.getRoots(
+        selectedPolynoms[0].polynom
+    ).then((data) => {
+        if (!data.ok) return setDialog(<Error supportingText={data.error} />);
+        setResult(<>
+            Roots: <br/>
+            {data.response.map((root, index) => {
+                return <li key={index}>{root}</li>
+            })}
+        </>);
+    });
+}
+
 export const OtherOperations: React.FC = () => {
     const { polynoms, selectedPolynoms } = usePolynoms()!;
     const { setDialog } = useDialog()!;
@@ -62,7 +83,7 @@ export const OtherOperations: React.FC = () => {
             }}>
                 <IconContentInsights24round /> Derivative
             </Button>
-            <Button variant='outlined'>
+            <Button variant='outlined' onClick={() => OpRoots(opData)}>
                 <IconContentCalculate24round /> Roots
             </Button>
             <Button variant='outlined'>

@@ -108,6 +108,11 @@ export class API {
             await this.#getResourse("getTheNthDerivative", {polynom, target, nth})
         )
     }
+    async getRoots(polynom: string) {
+        return this.#getResponse<number[]>(
+            await this.#getResourse("findRoots", {polynom})
+        )
+    }
 }
 
 const APIClient = new API();

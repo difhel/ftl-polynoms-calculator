@@ -113,6 +113,11 @@ export class API {
             await this.#getResourse("findRoots", {polynom})
         )
     }
+    async getValueAtPoint(polynom: string, point: number[]) {
+        return this.#getResponse<number>(
+            await this.#getResourse("calculate", {polynom, point})
+        )
+    }
 }
 
 const APIClient = new API();

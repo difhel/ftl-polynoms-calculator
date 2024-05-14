@@ -57,6 +57,27 @@ const OpRoots = (
     });
 }
 
+const OpPointValue = (
+    opdata: OpDataType
+) => {
+    const { selectedPolynoms, setDialog, api, setResult } = opdata;
+    if (selectedPolynoms.length != 1) {
+        return setDialog(<Error supportingText={"You should select only one polynom"} />);
+    }
+    const pointsStr = prompt("Enter the value for each variable separated by commas");
+    if (pointsStr === null) return;
+    const points = `[${pointsStr}]`;
+    api.getValueAtPoint(
+        selectedPolynoms[0].polynom, points as any
+    ).then((data) => {
+        if (!data.ok) return setDialog(<Error supportingText={data.error} />);
+        setResult(<>
+            Value at point {pointsStr}: <br/>
+            <Latex>{"$" + (data.response || 0) + "$"}</Latex>
+        </>);
+    });
+}
+
 export const OtherOperations: React.FC = () => {
     const { polynoms, selectedPolynoms } = usePolynoms()!;
     const { setDialog } = useDialog()!;
@@ -86,7 +107,7 @@ export const OtherOperations: React.FC = () => {
             <Button variant='outlined' onClick={() => OpRoots(opData)}>
                 <IconContentCalculate24round /> Roots
             </Button>
-            <Button variant='outlined'>
+            <Button variant='outlined' onClick={() => OpPointValue(opData)}>
                 <IconEditorLineAxis24round /> Value at point
             </Button>
         </Stack>

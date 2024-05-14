@@ -103,6 +103,11 @@ export class API {
             await this.#getResourse("compare", {lhs, rhs})
         )
     }
+    async getTheNthDerivative(polynom: string, target: string, nth: number) {
+        return this.#getResponse<string>(
+            await this.#getResourse("getTheNthDerivative", {polynom, target, nth})
+        )
+    }
 }
 
 const APIClient = new API();
